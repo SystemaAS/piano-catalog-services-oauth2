@@ -9,6 +9,6 @@ class SpringRestOauth2ApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-	
+	//
 
 }
