@@ -52,13 +52,11 @@ class SpringRestOauth2ApplicationTests {
 	//
 	
 	
-	
 	@Test
 	public void givenNoToken_whenGetSecureRequest_thenUnauthorized() throws Exception {
-	    mockMvc.perform(get("/pianos"))
+	    this.mockMvc.perform(get("/pianos"))
 	      .andExpect(status().isUnauthorized());
 	}
-	
 	
 	
 	@Test
@@ -71,7 +69,6 @@ class SpringRestOauth2ApplicationTests {
 	      .accept("application/json;charset=UTF-8"))
 	      .andExpect(status().isOk());
 	 
-	   
 	}
 	
 	
