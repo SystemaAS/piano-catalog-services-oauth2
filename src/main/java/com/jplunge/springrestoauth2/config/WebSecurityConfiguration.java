@@ -17,6 +17,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	@Value("${login.user.user}")
+    private String user;
+	@Value("${login.user.user.pwd}")
+    private String userPwd;
+	
+	@Value("${login.user.admin}")
+    private String admin;
+	@Value("${login.user.admin.pwd}")
+    private String adminPwd;
 	
 	@Autowired
 	public PasswordEncoder passwordEncoder;
@@ -25,8 +34,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	
-        auth.inMemoryAuthentication().withUser("user").password(passwordEncoder.encode("password")).roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("password")).roles("ADMIN");
+        auth.inMemoryAuthentication().withUser(user).password(passwordEncoder.encode(userPwd)).roles("USER");
+        auth.inMemoryAuthentication().withUser(admin).password(passwordEncoder.encode(adminPwd)).roles("ADMIN");
     }
 
     @Bean
@@ -41,7 +50,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	http.csrf().disable()
     	.authorizeRequests()
         .antMatchers("/oauth/token").permitAll()
-        .anyRequest().authenticated()
+    	.anyRequest().authenticated()
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     	
