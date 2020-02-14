@@ -61,7 +61,7 @@ class SpringRestOauth2ApplicationTests {
 	
 	@Test
 	public void givenToken_whenPostGetSecureRequest_thenOk() throws Exception {
-	    String accessToken = obtainAccessToken("admin", "password");
+	    String accessToken = obtainAccessToken("admin", "foo");
 	 
 	    mockMvc.perform(post("/pianos")
 	      .header("Authorization", "Bearer " + accessToken)
