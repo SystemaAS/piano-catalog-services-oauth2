@@ -43,8 +43,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         clients.inMemory()
                 .withClient(clientId) //Identifier of my WebApp. One client_id per application
                 .secret(passwordEncoder().encode(clientSecret)) //password to my application (secret) at the server.
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+                //.secret(passwordEncoder().encode("")) //empty password to my application.
+                //.authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+                .authorizedGrantTypes("password", "authorization_code", "client_credentials","refresh_token", "implicit")
                 .scopes("read", "write")
+                //.accessTokenValiditySeconds(30) //use default 30 days.
                 .autoApprove(true);
                 
     }
@@ -52,8 +55,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints
-                .authenticationManager(authenticationManager)
+        
+    	endpoints.authenticationManager(authenticationManager)
                 .tokenStore(tokenStore);
     }
 

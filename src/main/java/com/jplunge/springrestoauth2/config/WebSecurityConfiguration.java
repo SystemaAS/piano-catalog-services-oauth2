@@ -1,5 +1,7 @@
 package com.jplunge.springrestoauth2.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +15,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.jplunge.springrestoauth2.services.RestControllerPianoService;
+
 
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	private final Logger logger = LoggerFactory.getLogger(WebSecurityConfiguration.class);
+	
+	
 	@Value("${login.user.user}")
     private String user;
 	@Value("${login.user.user.pwd}")
@@ -26,6 +32,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String admin;
 	@Value("${login.user.admin.pwd}")
     private String adminPwd;
+	
+	
 	
 	@Autowired
 	public PasswordEncoder passwordEncoder;
@@ -49,7 +57,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	
     	http.csrf().disable()
     	.authorizeRequests()
-        .antMatchers("/oauth/token").permitAll()
+    	.antMatchers("/oauth/token").permitAll()
     	.anyRequest().authenticated()
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

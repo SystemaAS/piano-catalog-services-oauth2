@@ -94,8 +94,9 @@ class SpringRestOauth2ApplicationTests {
 	        .andExpect(content().contentType("application/json;charset=UTF-8"));
 	 
 	    String resultString = result.andReturn().getResponse().getContentAsString();
-	 
+	    System.out.println(resultString);
 	    JacksonJsonParser jsonParser = new JacksonJsonParser();
+	    
 	    return jsonParser.parseMap(resultString).get("access_token").toString();
 	}
 
