@@ -9,6 +9,7 @@
 	spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 	...
 	
+	
 (3) The reference is found in the build.gradle file: 
 		... 
 		runtimeOnly 'com.h2database:h2'
